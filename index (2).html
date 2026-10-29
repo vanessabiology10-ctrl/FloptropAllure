@@ -1,0 +1,945 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>♡ Floptrop Allure ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+  --pink: #ff72b6;
+  --hot: #ff3e97;
+  --pale: #fff0f8;
+  --purple: #b48bff;
+  --ink: #754064;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Quicksand', sans-serif;
+  color: var(--ink);
+  background-color: #ffe7f4;
+  background-image:
+    radial-gradient(#fff 1.5px, transparent 1.5px),
+    linear-gradient(135deg,#ffe9f6,#f5e8ff,#ffe1ee);
+  background-size: 23px 23px, 100% 100%;
+}
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid #a85ce5; outline-offset: 3px; }
+
+header {
+  text-align: center;
+  padding: 20px 12px 13px;
+}
+h1 {
+  margin: 0;
+  color: var(--hot);
+  font: 700 clamp(27px,5vw,45px) 'Fredoka',sans-serif;
+  text-shadow: 2px 3px white, 4px 5px #ffb5d9;
+}
+header p { margin: 8px 0 0; font-weight: 700; font-size: 12px; letter-spacing: 2px; }
+
+.game {
+  max-width: 1000px;
+  padding: 12px;
+  margin: auto;
+}
+.panel {
+  border: 3px solid white;
+  border-radius: 23px;
+  box-shadow: 0 7px 0 #efacd2, 0 12px 28px #d58ab83d;
+  background: #fff8fc;
+  overflow: hidden;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(90deg,#ffadd6,#f4caff,#ffadd6);
+  border-bottom: 3px solid white;
+  font-weight: 700;
+  font-size: 12px;
+}
+.dots { color: white; letter-spacing: 3px; font-size: 18px; }
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(270px,.85fr);
+  gap: 14px;
+  padding: 15px;
+}
+.stage {
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid white;
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 50% 38%,#fff 0%,#fff0f8 52%,#f9d5f0 100%);
+  box-shadow: inset 0 0 0 2px #f9c5e3;
+}
+.stage-title {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 0; right: 0;
+  text-align: center;
+  color: #e95a9e;
+  font: 700 16px 'Fredoka',sans-serif;
+}
+#doll {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.float-heart {
+  position: absolute;
+  color: #ff87c1;
+  pointer-events: none;
+  animation: float 3s ease-in-out infinite;
+  font-size: 23px;
+}
+.heart1 { top: 19%; left: 8%; }
+.heart2 { top: 35%; right: 7%; animation-delay: -1s; }
+.heart3 { bottom: 17%; left: 9%; animation-delay: -2s; }
+@keyframes float { 50% { transform: translateY(-10px) rotate(10deg); } }
+
+.tools { min-width: 0; }
+h2 {
+  font: 700 22px 'Fredoka',sans-serif;
+  color: var(--hot);
+  margin: 2px 0 8px;
+}
+.subtitle { font-size: 12px; margin: 0 0 13px; line-height: 1.6; }
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.tab {
+  border: 2px solid #f6c5df;
+  border-radius: 11px;
+  background: white;
+  color: #b05b8b;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: .15s;
+}
+.tab.active,.tab:hover {
+  background: #ff79b8;
+  border-color: #ff79b8;
+  color: white;
+  transform: translateY(-1px);
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin: 13px 0 8px;
+  color: #b778a0;
+  text-transform: uppercase;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 3px 2px;
+}
+.swatch {
+  width: 34px;
+  height: 34px;
+  border: 3px solid white;
+  outline: 2px solid #f0c4dc;
+  border-radius: 50%;
+  padding: 0;
+  box-shadow: 0 2px 4px #b9769a33;
+  transition: transform .15s;
+}
+.swatch:hover { transform: scale(1.14); }
+.swatch.selected { outline: 3px solid #ff4a9e; transform: scale(1.1); }
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 7px;
+}
+.action {
+  border: 2px solid #f5c8df;
+  border-radius: 12px;
+  background: white;
+  color: #995578;
+  padding: 10px 5px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.action:hover { background: #fff0f8; border-color: #f68cbe; }
+.action.active { background: #ffe0f0; border-color: #ff70b4; }
+.primary {
+  border: 0;
+  border-radius: 13px;
+  padding: 12px;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(135deg,#ff75b7,#e889f7);
+  box-shadow: 0 4px 0 #d955a1;
+  transition: .15s;
+}
+.primary:hover { filter: brightness(1.04); transform: translateY(-1px); }
+.primary:active { transform: translateY(2px); box-shadow: none; }
+.bottom-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 12px;
+}
+.status {
+  background: #fff0f8;
+  border: 2px dashed #f5acd1;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  min-height: 54px;
+}
+.status strong { color: #e64e9b; }
+.challenge {
+  padding: 12px;
+  margin-top: 12px;
+  background: #fff;
+  border: 2px solid #f7c9e2;
+  border-radius: 15px;
+}
+.challenge h3 {
+  margin: 0 0 8px;
+  color: #d95b9b;
+  font: 700 17px 'Fredoka',sans-serif;
+}
+.challenge select {
+  width: 100%;
+  padding: 9px;
+  border: 2px solid #f5c8df;
+  border-radius: 10px;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-size: 12px;
+}
+.challenge p { font-size: 12px; line-height: 1.6; }
+footer {
+  text-align: center;
+  font-size: 11px;
+  padding: 19px 8px 25px;
+  color: #b66e9a;
+  font-weight: 700;
+}
+@media(max-width:650px) {
+  .layout { grid-template-columns: 1fr; padding: 10px; }
+  .stage { max-width: 430px; width: 100%; margin: auto; }
+  .tools { padding: 4px; }
+  .topbar { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>♡ Floptrop Allure ♡</h1>
+  <p>✧ YOUR BEAUTY, YOUR RULES ✧</p>
+</header>
+
+<main class="game">
+  <div class="panel">
+    <div class="topbar">
+      <span>♥ MY LITTLE BEAUTY SALON ♥</span>
+      <span class="dots">✦ ✧ ✦</span>
+      <span>LEVEL 01</span>
+    </div>
+    <div class="layout">
+      <section class="stage">
+        <div class="stage-title">YOUR CANVAS ♡</div>
+        <span class="float-heart heart1">♡</span>
+        <span class="float-heart heart2">✦</span>
+        <span class="float-heart heart3">♥</span>
+
+        <!-- The makeup is drawn in separate SVG layers. -->
+        <svg id="doll" viewBox="0 0 360 490"
+             xmlns="http://www.w3.org/2000/svg"
+             role="img" aria-label="Illustrated fashion doll with customizable makeup">
+          <defs>
+            <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff0dc"/>
+              <stop offset=".58" stop-color="#ffd9c9"/>
+              <stop offset="1" stop-color="#efb398"/>
+            </linearGradient>
+            <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#633454"/>
+              <stop offset="1" stop-color="#a45579"/>
+            </linearGradient>
+            <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff9bcb"/>
+              <stop offset="1" stop-color="#df5caa"/>
+            </linearGradient>
+            <filter id="shadow">
+              <feGaussianBlur stdDeviation="3"/>
+            </filter>
+          </defs>
+
+          <!-- Background decorations -->
+          <circle cx="180" cy="240" r="133" fill="#ffe3f2"/>
+          <circle cx="180" cy="240" r="120" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="3 8"/>
+          <text x="38" y="120" font-size="17" fill="#f5a1cb">✦</text>
+          <text x="290" y="145" font-size="19" fill="#f5a1cb">✧</text>
+          <text x="48" y="310" font-size="18" fill="#f5a1cb">♡</text>
+          <text x="300" y="340" font-size="17" fill="#f5a1cb">✦</text>
+
+          <!-- Hair behind face -->
+          <path id="backHair" d="M95 178 Q73 74 174 72 Q278 64 268 182
+                   L284 316 Q273 360 243 340 L111 350
+                   Q78 345 79 301 Z" fill="url(#hair)"/>
+
+          <!-- Neck -->
+          <path d="M150 302 L150 351 Q180 377 210 351 L210 302"
+                fill="url(#skin)"/>
+
+          <!-- Shoulders and outfit -->
+          <path d="M150 335 Q115 337 91 364 L68 455 Q180 481 292 455
+                   L269 364 Q245 337 210 335 L180 363 Z" fill="url(#skin)"/>
+          <path id="shirtBody" d="M150 335 Q115 337 91 364 L68 455
+                   Q180 481 292 455 L269 364 Q245 337 210 335
+                   L180 363 Z" fill="url(#shirt)" stroke="#fff" stroke-width="2"/>
+          <path id="shirtCollar" d="M149 337 Q180 385 211 337 L224 365
+                   Q180 397 136 365 Z" fill="#fff0f8" stroke="#f8badb" stroke-width="2"/>
+          <path id="shirtDetail" d="M162 402 L180 418 L198 402" fill="none" stroke="#fff" stroke-width="3"/>
+          <text id="shirtHeart" x="180" y="449" text-anchor="middle" font-size="22" fill="#fff">♥</text>
+
+          <!-- Hair framing face -->
+          <path id="frameHair" d="M102 153 Q98 97 153 91 Q203 78 241 116
+                   Q260 143 252 205 L240 273
+                   Q236 298 221 305 L224 173
+                   Q184 153 155 168 Q126 177 112 222 Z"
+                fill="url(#hair)"/>
+
+          <!-- Ears -->
+          <ellipse cx="112" cy="222" rx="14" ry="22" fill="#f1bba0"/>
+          <ellipse cx="248" cy="222" rx="14" ry="22" fill="#f1bba0"/>
+
+          <!-- Face -->
+          <path d="M112 159 Q112 106 180 108 Q248 106 248 159
+                   L240 238 Q234 286 180 312 Q126 286 120 238 Z"
+                fill="url(#skin)" stroke="#d89a83" stroke-width="1.2"/>
+          <ellipse cx="129" cy="252" rx="13" ry="6" fill="#fff4ec" opacity=".28"/>
+          <ellipse cx="231" cy="252" rx="13" ry="6" fill="#fff4ec" opacity=".28"/>
+
+          <!-- Bangs -->
+          <path id="bangsHair" d="M103 176 Q91 101 153 91 Q205 78 241 116
+                   Q254 134 250 174 Q229 152 215 132
+                   Q188 157 143 151 Q126 150 103 176 Z"
+                fill="url(#hair)"/>
+          <path d="M145 104 Q164 133 157 150" fill="none" stroke="#d58baa" stroke-width="3" opacity=".65"/>
+          <path d="M196 98 Q221 119 225 143" fill="none" stroke="#d58baa" stroke-width="3" opacity=".65"/>
+
+          <!-- Eyebrows -->
+          <path d="M128 188 Q145 176 163 187" fill="none" stroke="#75425a" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M197 187 Q215 176 232 188" fill="none" stroke="#75425a" stroke-width="3.5" stroke-linecap="round"/>
+
+          <!-- Blush -->
+          <ellipse id="blushL" cx="137" cy="244" rx="21" ry="11" fill="#ff6b9e" opacity=".35"/>
+          <ellipse id="blushR" cx="223" cy="244" rx="21" ry="11" fill="#ff6b9e" opacity=".35"/>
+
+          <!-- Eyes -->
+          <path d="M123 207 Q144 184 166 205 Q147 232 123 207Z" fill="#fffdfc" stroke="#79465b" stroke-width="1.4"/>
+          <path d="M194 205 Q216 184 238 207 Q214 232 194 205Z" fill="#fffdfc" stroke="#79465b" stroke-width="1.4"/>
+
+          <!-- Eyeshadow sits above the eye whites so the color stays visible. -->
+          <g id="shadowL"><path id="shadowLeft" d="M122 202 Q144 188 167 202 Q159 211 144 212 Q130 211 122 202Z" fill="#d98bd1" opacity=".65"/></g>
+          <g id="shadowR"><path id="shadowRight" d="M193 202 Q216 188 239 202 Q230 211 216 212 Q201 211 193 202Z" fill="#d98bd1" opacity=".65"/></g>
+          <ellipse cx="145" cy="207" rx="9" ry="12" fill="#8f668a"/>
+          <ellipse cx="216" cy="207" rx="9" ry="12" fill="#8f668a"/>
+          <ellipse cx="145" cy="208" rx="4.5" ry="8" fill="#38253d"/>
+          <ellipse cx="216" cy="208" rx="4.5" ry="8" fill="#38253d"/>
+          <circle cx="149" cy="202" r="3.5" fill="white"/>
+          <circle cx="220" cy="202" r="3.5" fill="white"/>
+          <circle cx="141" cy="212" r="1.5" fill="#fff" opacity=".8"/>
+          <circle cx="212" cy="212" r="1.5" fill="#fff" opacity=".8"/>
+
+          <!-- Eyeliner layers -->
+          <g id="linerL"><path id="linerLeft" d="M123 207 Q144 184 166 205 L171 212 Q145 195 124 214 L111 198Z" fill="#58324d"/></g>
+          <g id="linerR"><path id="linerRight" d="M194 205 Q216 184 238 207 L250 198 L237 214 Q215 195 191 212Z" fill="#58324d"/></g>
+
+          <!-- Lashes -->
+          <g id="lashes" stroke="#553149" stroke-width="2.5" stroke-linecap="round">
+            <path d="M132 198 L128 192 M140 194 L138 187 M150 194 L151 187 M158 198 L163 192"/>
+            <path d="M202 198 L198 192 M210 194 L209 187 M220 194 L222 187 M229 198 L234 192"/>
+          </g>
+
+          <!-- Nose -->
+          <path d="M178 211 Q172 232 177 236 Q182 240 187 235"
+                fill="none" stroke="#cf927e" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="174" cy="237" r="1.5" fill="#cf927e"/>
+          <circle cx="188" cy="237" r="1.5" fill="#cf927e"/>
+
+          <!-- Lips and lipstick -->
+          <path id="lips" d="M151 258 Q164 246 180 254 Q196 246 209 258
+                    Q203 273 190 278 Q180 281 170 278 Q157 273 151 258Z"
+                fill="#e85f88" stroke="#bd4b78" stroke-width="1.3"/>
+          <path d="M155 258 Q169 251 180 257 Q191 251 205 258"
+                fill="none" stroke="#ffc2d4" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M168 269 Q180 274 192 269" fill="none" stroke="#ffb1c8" stroke-width="1.5"/>
+
+          <!-- Beauty marks and highlights -->
+          <path d="M131 230 Q135 226 139 230 M222 230 Q226 226 230 230"
+                fill="none" stroke="#ffe6d9" stroke-width="2"/>
+          <circle cx="155" cy="249" r="2" fill="#fff3e8"/>
+          <circle cx="211" cy="249" r="2" fill="#fff3e8"/>
+
+          <!-- Freckles layer -->
+          <g id="freckles" fill="#bd785f" opacity="0">
+            <circle cx="137" cy="239" r="1.6"/><circle cx="147" cy="244" r="1.6"/>
+            <circle cx="155" cy="238" r="1.6"/><circle cx="208" cy="238" r="1.6"/>
+            <circle cx="216" cy="244" r="1.6"/><circle cx="225" cy="239" r="1.6"/>
+          </g>
+
+          <!-- Accessories layer -->
+          <g id="accessories">
+            <path d="M108 211 Q91 208 96 229" fill="none" stroke="#f7cf65" stroke-width="4"/>
+            <circle cx="99" cy="238" r="6" fill="#ffd66e" stroke="#fff" stroke-width="2"/>
+            <path d="M252 211 Q269 208 264 229" fill="none" stroke="#f7cf65" stroke-width="4"/>
+            <circle cx="261" cy="238" r="6" fill="#ffd66e" stroke="#fff" stroke-width="2"/>
+          </g>
+
+          <!-- Glitter overlay -->
+          <g id="glitter" fill="#fff" opacity=".95">
+            <path d="M129 231 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2Z"/>
+            <path d="M231 232 l2 4 4 2 -4 2 -2 4 -2 -4 -4 -2 4 -2Z"/>
+          </g>
+        </svg>
+      </section>
+
+      <section class="tools">
+        <h2>Beauty Station 💄</h2>
+        <p class="subtitle">Pick your makeup, choose a color, and create your dream look!</p>
+
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-tool="lip">💋 Lips</button>
+          <button class="tab" data-tool="shadow">👁 Eyes</button>
+          <button class="tab" data-tool="blush">🌸 Blush</button>
+          <button class="tab" data-tool="liner">🖤 Liner</button>
+          <button class="tab" data-tool="extras">✨ Extras</button>
+        </div>
+
+        <div class="section-label">Hair style ✧</div>
+        <div class="action-grid" id="hairStyles">
+          <button class="action active" data-hair="long" aria-pressed="true">🌸 Long waves</button>
+          <button class="action" data-hair="bob" aria-pressed="false">✂️ Chic bob</button>
+          <button class="action" data-hair="ponytail" aria-pressed="false">🎀 High ponytail</button>
+          <button class="action" data-hair="swept" aria-pressed="false">✨ Side-swept</button>
+          <button class="action" data-hair="straight" aria-pressed="false">💇 Straight & sleek</button>
+          <button class="action" data-hair="superlong" aria-pressed="false">🌙 Super long hair</button>
+        </div>
+
+        <div class="section-label">Hair color ✧</div>
+        <div class="action-grid" id="hairColors">
+          <button class="action active" data-hair-color="brunette">🤎 Brunette</button>
+          <button class="action" data-hair-color="blonde">🌼 Blonde</button>
+          <button class="action" data-hair-color="auburn">🧡 Auburn</button>
+          <button class="action" data-hair-color="black">🖤 Midnight</button>
+          <button class="action" data-hair-color="pink">💗 Cotton candy</button>
+          <button class="action" data-hair-color="blue">💙 Blue dream</button>
+        </div>
+
+        <div class="section-label">Outfit style ✧</div>
+        <div class="action-grid" id="outfitStyles">
+          <button class="action active" data-outfit="sweet">🎀 Sweet blouse</button>
+          <button class="action" data-outfit="lavender">💜 Lavender chic</button>
+          <button class="action" data-outfit="fairy">🧚 Fairy dress</button>
+          <button class="action" data-outfit="party">✨ Party top</button>
+          <button class="action" data-outfit="crop">💖 Crop top</button>
+          <button class="action" data-outfit="shortSleeve">🌷 Short sleeves</button>
+          <button class="action" data-outfit="longSleeve">🧥 Long sleeves</button>
+          <button class="action" data-outfit="offShoulder">🌼 Off-shoulder</button>
+        </div>
+
+        <div class="section-label">Choose your shade ✧</div>
+        <div class="swatches" id="swatches"></div>
+
+        <div class="section-label">Makeup actions</div>
+        <div class="action-grid" id="actions"></div>
+
+        <div class="challenge">
+          <h3>♡ Beauty Challenge</h3>
+          <select id="challengeSelect">
+            <option value="pink">01 — Pink Princess</option>
+            <option value="night">02 — Disco Night</option>
+            <option value="fairy">03 — Fairy Dream</option>
+            <option value="natural">04 — Soft & Sweet</option>
+          </select>
+          <p id="challengeDesc">Create a dreamy pink look with rosy lips and sparkling eyes!</p>
+          <button class="primary" id="checkChallenge" style="width:100%">♡ Check My Look ♡</button>
+        </div>
+
+        <div class="bottom-actions">
+          <button class="primary" id="randomBtn">🎲 Surprise Me</button>
+          <button class="primary" id="resetBtn">↻ Reset Face</button>
+          <button class="action" id="removeBtn">✕ Remove Makeup</button>
+          <button class="action" id="saveBtn">📸 Save Look</button>
+        </div>
+
+        <div class="status" id="status" aria-live="polite">
+          <strong>Welcome, makeup artist! ♡</strong><br>
+          Select a tool and color to get started.
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>♡ FLOPTROP ALLURE · MADE WITH LOVE & GLITTER ♡</footer>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  const palettes = {
+    lip: [
+      ['#ed477c','Cherry Pop'],['#ff7eaa','Bubblegum'],
+      ['#d92d69','Berry Kiss'],['#c95d83','Rosewood'],
+      ['#f39aaf','Peach Pink'],['#a83d69','Plum'],
+      ['#fa365e','Red Velvet'],['#ffbad1','Cotton Candy']
+    ],
+    shadow: [
+      ['#d98bd1','Pink'],['#ac83ed','Lavender'],
+      ['#79cbd4','Aqua'],['#ffca83','Peach'],
+      ['#a8c98c','Sage'],['#a35b83','Berry'],
+      ['#f4a4ce','Baby Pink'],['#e5c8ff','Lilac']
+    ],
+    blush: [
+      ['#ff5e91','Rosy'],['#f78eaf','Soft Pink'],
+      ['#ed8c76','Peach'],['#da659b','Berry'],
+      ['#ffb0c8','Cotton'],['#c8758c','Mauve']
+    ],
+    liner: [
+      ['#493044','Classic Black'],['#81405c','Plum'],
+      ['#a96bcb','Purple'],['#327b8b','Teal'],
+      ['#c44881','Pink'],['#755b3e','Brown']
+    ],
+    extras: [
+      ['#ffffff','Pearl'],['#ffdb70','Gold'],
+      ['#ff8ed0','Pink Glitter'],['#b8a0ff','Lilac Glitter'],
+      ['#86dce1','Ice'],['#f9b6a0','Peach']
+    ]
+  };
+
+  let tool = 'lip';
+  let shade = palettes.lip[1][0];
+
+  const state = {
+    lip: '#e85f88',
+    shadow: '#d98bd1',
+    blush: '#ff6b9e',
+    liner: '#58324d',
+    lashes: true,
+    freckles: false,
+    glitter: true,
+    accessories: true,
+    glitterColor: '#ffffff'
+  };
+
+  const defaults = {...state};
+
+  const hairStyles = {
+    long: {
+      back: 'M95 178 Q73 74 174 72 Q278 64 268 182 L284 316 Q273 360 243 340 L111 350 Q78 345 79 301 Z',
+      frame: 'M102 153 Q98 97 153 91 Q203 78 241 116 Q260 143 252 205 L240 273 Q236 298 221 305 L224 173 Q184 153 155 168 Q126 177 112 222 Z',
+      bangs: 'M103 176 Q91 101 153 91 Q205 78 241 116 Q254 134 250 174 Q229 152 215 132 Q188 157 143 151 Q126 150 103 176 Z'
+    },
+    bob: {
+      back: 'M95 178 Q73 74 174 72 Q278 64 268 182 L276 264 Q270 300 242 294 L111 300 Q82 294 79 264 Z',
+      frame: 'M102 153 Q98 97 153 91 Q203 78 241 116 Q260 143 252 205 L240 257 Q235 278 221 285 L224 173 Q184 153 155 168 Q126 177 112 222 Z',
+      bangs: 'M103 176 Q91 101 153 91 Q205 78 241 116 Q254 134 250 174 Q229 152 215 132 Q188 157 143 151 Q126 150 103 176 Z'
+    },
+    ponytail: {
+      back: 'M95 178 Q73 74 174 72 Q278 64 268 182 L284 316 Q273 360 243 340 L111 350 Q78 345 79 301 Z M235 126 Q286 94 298 145 Q308 185 279 211 Q267 218 258 203 Q282 180 268 158 Q257 142 239 151 Z',
+      frame: 'M102 153 Q98 97 153 91 Q203 78 241 116 Q260 143 252 205 L240 273 Q236 298 221 305 L224 173 Q184 153 155 168 Q126 177 112 222 Z',
+      bangs: 'M103 176 Q91 101 153 91 Q205 78 241 116 Q254 134 250 174 Q229 152 215 132 Q188 157 143 151 Q126 150 103 176 Z'
+    },
+    swept: {
+      back: 'M95 178 Q73 74 174 72 Q278 64 268 182 L284 316 Q273 360 243 340 L111 350 Q78 345 79 301 Z',
+      frame: 'M102 153 Q98 97 153 91 Q203 78 241 116 Q260 143 252 205 L240 273 Q236 298 221 305 L224 173 Q184 153 155 168 Q126 177 112 222 Z',
+      bangs: 'M103 176 Q91 101 153 91 Q205 78 241 116 Q254 134 250 174 Q228 164 207 145 Q177 171 137 160 Q119 159 103 176 Z'
+    },
+    straight: {
+      back: 'M95 178 Q79 93 132 76 Q181 59 226 78 Q277 98 268 178 L270 354 L246 362 L239 334 L121 334 L114 362 L87 354 L90 224 Z',
+      frame: 'M101 150 Q103 95 151 88 Q204 77 241 116 Q257 137 251 190 L239 304 L220 320 L222 169 Q183 151 155 166 Q126 176 112 218 L111 320 L92 304 Z',
+      bangs: 'M103 160 Q99 105 151 90 Q204 76 241 116 L248 164 Q224 148 210 135 Q181 153 151 149 Q126 148 103 160 Z'
+    },
+    superlong: {
+      back: 'M95 178 Q73 74 174 72 Q278 64 268 182 L292 435 Q276 454 251 439 L238 345 L119 345 L106 439 Q82 454 65 435 Z',
+      frame: 'M102 153 Q98 97 153 91 Q203 78 241 116 Q260 143 252 205 L262 402 Q250 424 231 405 L221 305 L224 173 Q184 153 155 168 Q126 177 112 222 L110 405 Q91 424 78 402 L88 205 Z',
+      bangs: 'M103 176 Q91 101 153 91 Q205 78 241 116 Q254 134 250 174 Q229 152 215 132 Q188 157 143 151 Q126 150 103 176 Z'
+    }
+  };
+
+  const tools = {
+    lip: {
+      actions: [
+        ['💋 Apply lipstick','apply'],
+        ['✨ Gloss finish','gloss']
+      ]
+    },
+    shadow: {
+      actions: [
+        ['👁 Apply eyeshadow','apply']
+      ]
+    },
+    blush: {
+      actions: [
+        ['🌸 Apply blush','apply'],
+        ['🍑 Soft blush','soft']
+      ]
+    },
+    liner: {
+      actions: [
+        ['🖤 Apply eyeliner','apply'],
+        ['🌈 Double wing','wing'],
+        ['🦋 Add lashes','lashes']
+      ]
+    },
+    extras: {
+      actions: [
+        ['✨ Face glitter','glitter'],
+        ['♡ Freckles','freckles'],
+        ['💎 Earrings','earrings'],
+        ['✧ Remove extras','clear']
+      ]
+    }
+  };
+
+  function say(html) {
+    $('status').innerHTML = html;
+  }
+
+  function setHairStyle(style) {
+    const paths = hairStyles[style];
+    $('backHair').setAttribute('d',paths.back);
+    $('frameHair').setAttribute('d',paths.frame);
+    $('bangsHair').setAttribute('d',paths.bangs);
+    document.querySelectorAll('#hairStyles [data-hair]').forEach(button => {
+      const selected = button.dataset.hair === style;
+      button.classList.toggle('active',selected);
+      button.setAttribute('aria-pressed',selected);
+    });
+  }
+
+  const hairColors = {
+    brunette: ['#633454','#a45579'], blonde: ['#e8aa3a','#ffe59a'],
+    auburn: ['#873d2d','#df8452'], black: ['#292237','#594660'],
+    pink: ['#d44791','#ffafd3'], blue: ['#5577bb','#91c9f0']
+  };
+  const outfits = {
+    sweet: {colors:['#ff9bcb','#df5caa'], bodyPath:'M150 335 Q115 337 91 364 L68 405 Q95 420 120 394 L128 416 Q180 431 232 416 L240 394 Q265 420 292 405 L269 364 Q245 337 210 335 L180 363 Z', collar:'#fff0f8', edge:'#f8badb', detail:'#fff', collarPath:'M149 337 Q180 385 211 337 L224 365 Q180 397 136 365 Z', detailPath:'M162 402 L180 418 L198 402'},
+    lavender: {colors:['#b79aff','#7956c8'], bodyPath:'M150 335 Q115 337 91 364 L68 405 Q95 420 120 394 L128 416 Q180 431 232 416 L240 394 Q265 420 292 405 L269 364 Q245 337 210 335 L180 363 Z', collar:'#efe7ff', edge:'#a48be8', detail:'#fff', collarPath:'M145 337 L180 371 L215 337 L226 363 L180 405 L134 363 Z', detailPath:'M180 374 L180 430'},
+    fairy: {colors:['#78d6c4','#36a98f'], bodyPath:'M150 335 Q115 337 91 364 L68 405 Q95 420 120 394 L128 416 Q180 431 232 416 L240 394 Q265 420 292 405 L269 364 Q245 337 210 335 L180 363 Z', collar:'#e2fff8', edge:'#8be0ce', detail:'#fff6a8', collarPath:'M149 337 Q158 363 180 369 Q202 363 211 337 L224 365 Q180 397 136 365 Z', detailPath:'M180 395 L185 405 L196 406 L188 413 L190 424 L180 418 L170 424 L172 413 L164 406 L175 405 Z'},
+    party: {colors:['#72508e','#38264e'], bodyPath:'M150 335 Q115 337 91 364 L68 405 Q95 420 120 394 L128 416 Q180 431 232 416 L240 394 Q265 420 292 405 L269 364 Q245 337 210 335 L180 363 Z', collar:'#ffd96a', edge:'#fff0a8', detail:'#ffafd3', collarPath:'M149 337 L180 371 L211 337 L222 361 L180 389 L138 361 Z', detailPath:'M160 407 L180 423 L200 407'},
+    crop: {colors:['#ff9bc8','#ef4f9d'], bodyPath:'M150 335 Q115 337 91 364 L68 405 Q95 420 120 394 L128 416 Q180 431 232 416 L240 394 Q265 420 292 405 L269 364 Q245 337 210 335 L180 363 Z', collar:'#fff0f8', edge:'#f8badb', detail:'#fff', collarPath:'M149 337 Q180 385 211 337 L224 365 Q180 397 136 365 Z', detailPath:'M162 397 L180 410 L198 397'},
+    shortSleeve: {colors:['#ffcf75','#f29445'], bodyPath:'M150 335 Q119 338 101 355 L82 397 Q101 410 121 394 L128 378 L119 455 Q180 481 241 455 L232 378 L239 394 Q259 410 278 397 L259 355 Q241 338 210 335 L180 363 Z', collar:'#fff4d8', edge:'#f3bd65', detail:'#fff', collarPath:'M149 337 Q180 385 211 337 L224 365 Q180 397 136 365 Z', detailPath:'M162 402 L180 418 L198 402'},
+    longSleeve: {colors:['#a8d9ff','#579cdb'], bodyPath:'M150 335 Q115 337 91 364 L52 430 Q72 449 101 430 L126 385 L119 455 Q180 481 241 455 L234 385 L259 430 Q288 449 308 430 L269 364 Q245 337 210 335 L180 363 Z', collar:'#e8f6ff', edge:'#8bc4f0', detail:'#fff', collarPath:'M149 337 Q180 385 211 337 L224 365 Q180 397 136 365 Z', detailPath:'M162 402 L180 418 L198 402'},
+    offShoulder: {colors:['#ffb0b7','#e75d80'], bodyPath:'M150 345 Q115 345 91 370 L68 455 Q180 481 292 455 L269 370 Q245 345 210 345 L180 363 Z', collar:'#fff0f8', edge:'#ffbfd2', detail:'#fff', collarPath:'M128 347 Q180 378 232 347 L224 369 Q180 398 136 369 Z', detailPath:'M162 402 L180 418 L198 402'}
+  };
+
+  function setHairColor(color) {
+    document.querySelectorAll('#hair stop').forEach((stop,index) => {
+      stop.setAttribute('stop-color',hairColors[color][index]);
+    });
+    document.querySelectorAll('#hairColors [data-hair-color]').forEach(button => {
+      const selected = button.dataset.hairColor === color;
+      button.classList.toggle('active',selected);
+      button.setAttribute('aria-pressed',selected);
+    });
+  }
+
+  function setOutfit(style) {
+    const outfit = outfits[style];
+    $('shirtBody').setAttribute('d',outfit.bodyPath);
+    document.querySelectorAll('#shirt stop').forEach((stop,index) => {
+      stop.setAttribute('stop-color',outfit.colors[index]);
+    });
+    $('shirtCollar').setAttribute('d',outfit.collarPath);
+    $('shirtCollar').setAttribute('fill',outfit.collar);
+    $('shirtCollar').setAttribute('stroke',outfit.edge);
+    $('shirtDetail').setAttribute('d',outfit.detailPath);
+    $('shirtDetail').setAttribute('stroke',outfit.detail);
+    $('shirtHeart').setAttribute('fill',outfit.detail);
+    document.querySelectorAll('#outfitStyles [data-outfit]').forEach(button => {
+      const selected = button.dataset.outfit === style;
+      button.classList.toggle('active',selected);
+      button.setAttribute('aria-pressed',selected);
+    });
+  }
+
+  $('hairColors').addEventListener('click',e => {
+    const button = e.target.closest('[data-hair-color]');
+    if(button) setHairColor(button.dataset.hairColor);
+  });
+  $('outfitStyles').addEventListener('click',e => {
+    const button = e.target.closest('[data-outfit]');
+    if(button) setOutfit(button.dataset.outfit);
+  });
+
+  $('hairStyles').addEventListener('click',e => {
+    const button = e.target.closest('[data-hair]');
+    if(button) setHairStyle(button.dataset.hair);
+  });
+
+  function renderPalette() {
+    $('swatches').innerHTML = '';
+    palettes[tool].forEach(([color,name]) => {
+      const b = document.createElement('button');
+      b.className = 'swatch' + (shade === color ? ' selected' : '');
+      b.style.background = color;
+      b.title = name;
+      b.setAttribute('aria-label',name);
+      b.addEventListener('click',() => {
+        shade = color;
+        renderPalette();
+        applyShade();
+      });
+      $('swatches').appendChild(b);
+    });
+
+    $('actions').innerHTML = '';
+    tools[tool].actions.forEach(([label,action]) => {
+      const b = document.createElement('button');
+      b.className = 'action';
+      b.textContent = label;
+      b.addEventListener('click',() => doAction(action));
+      $('actions').appendChild(b);
+    });
+  }
+
+  function applyShade() {
+    if(tool === 'lip') {
+      state.lip = shade;
+      $('lips').setAttribute('fill',shade);
+      say(`<strong>💋 Lipstick applied!</strong><br>Your lips are now looking fabulous.`);
+    } else if(tool === 'shadow') {
+      state.shadow = shade;
+      $('shadowLeft').setAttribute('fill',shade);
+      $('shadowRight').setAttribute('fill',shade);
+      $('shadowLeft').setAttribute('opacity','.85');
+      $('shadowRight').setAttribute('opacity','.85');
+      say(`<strong>👁 Eyeshadow magic!</strong><br>Beautiful ${shade} eyeshadow applied.`);
+    } else if(tool === 'blush') {
+      state.blush = shade;
+      $('blushL').setAttribute('fill',shade);
+      $('blushR').setAttribute('fill',shade);
+      $('blushL').setAttribute('opacity','.55');
+      $('blushR').setAttribute('opacity','.55');
+      say('<strong>🌸 Rosy cheeks!</strong><br>A lovely blush has been applied.');
+    } else if(tool === 'liner') {
+      state.liner = shade;
+      $('linerLeft').setAttribute('fill',shade);
+      $('linerRight').setAttribute('fill',shade);
+      say('<strong>🖤 Liner on point!</strong><br>Your eyeliner is ready for the spotlight.');
+    } else {
+      state.glitterColor = shade;
+      $('glitter').setAttribute('fill',shade);
+      state.glitter = true;
+      say('<strong>✨ Glitter time!</strong><br>Your face is sparkling!');
+    }
+  }
+
+  function doAction(action) {
+    switch(action) {
+      case 'apply':
+        applyShade();
+        break;
+      case 'gloss':
+        $('lips').setAttribute('stroke','#fff');
+        $('lips').setAttribute('stroke-width','3');
+        say('<strong>💖 Glossy finish!</strong><br>Shiny lips activated.');
+        break;
+      case 'wing':
+        $('linerLeft').setAttribute('d','M123 207 Q144 184 166 205 L181 185 L174 216 Q145 194 124 214 L106 190Z');
+        $('linerRight').setAttribute('d','M194 205 Q216 184 238 207 L254 190 L237 214 Q215 194 191 216 L183 185Z');
+        say('<strong>🦋 Winged liner!</strong><br>Extra drama unlocked.');
+        break;
+      case 'soft':
+        $('blushL').setAttribute('opacity','.25');
+        $('blushR').setAttribute('opacity','.25');
+        say('<strong>🍑 Soft blush!</strong><br>A subtle flush for your look.');
+        break;
+      case 'lashes':
+        state.lashes = !state.lashes;
+        $('lashes').style.display = state.lashes ? '' : 'none';
+        say('<strong>👁 Lashes updated!</strong><br>Toggle your lash look anytime.');
+        break;
+      case 'glitter':
+        state.glitter = !state.glitter;
+        $('glitter').style.display = state.glitter ? '' : 'none';
+        say('<strong>✨ Glitter toggled!</strong><br>Shine bright!');
+        break;
+      case 'freckles':
+        state.freckles = !state.freckles;
+        $('freckles').setAttribute('opacity',state.freckles?'1':'0');
+        say('<strong>♡ Cute freckles!</strong><br>Such a sweet detail.');
+        break;
+      case 'earrings':
+        state.accessories = !state.accessories;
+        $('accessories').style.display = state.accessories ? '' : 'none';
+        say('<strong>💎 Accessories updated!</strong><br>Little details, big energy.');
+        break;
+      case 'clear':
+        state.glitter = false;
+        state.freckles = false;
+        $('glitter').style.display='none';
+        $('freckles').setAttribute('opacity','0');
+        say('<strong>✧ Extras removed!</strong><br>Ready for a fresh look.');
+        break;
+    }
+  }
+
+  $('tabs').addEventListener('click',e => {
+    const b = e.target.closest('[data-tool]');
+    if(!b) return;
+    tool = b.dataset.tool;
+    document.querySelectorAll('.tab').forEach(t =>
+      t.classList.toggle('active',t === b)
+    );
+    shade = palettes[tool][0][0];
+    renderPalette();
+  });
+
+  function reset() {
+    Object.assign(state,defaults);
+    setHairStyle('long');
+    setHairColor('brunette');
+    setOutfit('sweet');
+    $('lips').setAttribute('fill',defaults.lip);
+    $('lips').setAttribute('stroke','#bd4b78');
+    $('lips').setAttribute('stroke-width','1.5');
+    $('shadowLeft').setAttribute('fill',defaults.shadow);
+    $('shadowRight').setAttribute('fill',defaults.shadow);
+    $('shadowLeft').setAttribute('opacity','.65');
+    $('shadowRight').setAttribute('opacity','.65');
+    $('blushL').setAttribute('fill',defaults.blush);
+    $('blushR').setAttribute('fill',defaults.blush);
+    $('blushL').setAttribute('opacity','.35');
+    $('blushR').setAttribute('opacity','.35');
+    $('linerLeft').setAttribute('d','M123 207 Q144 184 166 205 L171 212 Q145 195 124 214 L111 198Z');
+    $('linerRight').setAttribute('d','M194 205 Q216 184 238 207 L250 198 L237 214 Q215 195 191 212Z');
+    $('linerLeft').setAttribute('fill',defaults.liner);
+    $('linerRight').setAttribute('fill',defaults.liner);
+    $('linerLeft').setAttribute('opacity','1');
+    $('linerRight').setAttribute('opacity','1');
+    $('lashes').style.display='';
+    $('glitter').style.display='';
+    $('glitter').setAttribute('fill','#ffffff');
+    $('freckles').setAttribute('opacity','0');
+    $('accessories').style.display='';
+    say('<strong>♡ Fresh face!</strong><br>All reset! Your next masterpiece awaits.');
+  }
+
+  $('resetBtn').addEventListener('click',reset);
+
+  $('removeBtn').addEventListener('click',() => {
+    $('lips').setAttribute('fill','#efb398');
+    $('lips').setAttribute('stroke','#d89a83');
+    $('shadowLeft').setAttribute('opacity','0');
+    $('shadowRight').setAttribute('opacity','0');
+    $('blushL').setAttribute('opacity','0');
+    $('blushR').setAttribute('opacity','0');
+    $('linerLeft').setAttribute('opacity','0');
+    $('linerRight').setAttribute('opacity','0');
+    $('lashes').style.display='none';
+    $('glitter').style.display='none';
+    $('freckles').setAttribute('opacity','0');
+    say('<strong>♡ Bare-face mode!</strong><br>Makeup cleared. Choose a new look!');
+  });
+
+  $('randomBtn').addEventListener('click',() => {
+    const random = arr => arr[Math.floor(Math.random()*arr.length)];
+    state.lip = random(palettes.lip)[0];
+    state.shadow = random(palettes.shadow)[0];
+    state.blush = random(palettes.blush)[0];
+    state.liner = random(palettes.liner)[0];
+    $('lips').setAttribute('fill',state.lip);
+    $('lips').setAttribute('stroke','#bd4b78');
+    $('shadowLeft').setAttribute('fill',state.shadow);
+    $('shadowRight').setAttribute('fill',state.shadow);
+    $('shadowLeft').setAttribute('opacity','.85');
+    $('shadowRight').setAttribute('opacity','.85');
+    $('blushL').setAttribute('fill',state.blush);
+    $('blushR').setAttribute('fill',state.blush);
+    $('blushL').setAttribute('opacity','.5');
+    $('blushR').setAttribute('opacity','.5');
+    $('linerLeft').setAttribute('fill',state.liner);
+    $('linerRight').setAttribute('fill',state.liner);
+    ['lashes','glitter','accessories'].forEach(id => $(id).style.display='');
+    $('freckles').setAttribute('opacity','1');
+    say('<strong>🎲 Surprise makeover!</strong><br>A brand-new look just for you!');
+  });
+
+  const challenges = {
+    pink: {
+      desc:'Create a dreamy pink look with rosy lips and sparkling eyes!',
+      test:() => state.lip === '#ff7eaa' || state.lip === '#f39aaf' ||
+        state.shadow === '#d98bd1' || state.shadow === '#f4a4ce'
+    },
+    night: {
+      desc:'Disco time! Try berry or red lips and a dramatic purple eye.',
+      test:() => ['#d92d69','#fa365e','#a83d69'].includes(state.lip) ||
+        state.shadow === '#ac83ed' || state.liner === '#a96bcb'
+    },
+    fairy: {
+      desc:'Make a magical fairy look with lavender, glitter, and soft pink.',
+      test:() => state.shadow === '#ac83ed' || state.shadow === '#e5c8ff' ||
+        state.glitter
+    },
+    natural: {
+      desc:'Keep it soft and sweet with peach or gentle pink tones.',
+      test:() => state.blush === '#ed8c76' || state.blush === '#f78eaf' ||
+        state.lip === '#f39aaf' || state.lip === '#ffbad1'
+    }
+  };
+
+  $('challengeSelect').addEventListener('change',e => {
+    $('challengeDesc').textContent = challenges[e.target.value].desc;
+  });
+
+  $('checkChallenge').addEventListener('click',() => {
+    if(challenges[$('challengeSelect').value].test()) {
+      say('<strong>🏆 Challenge complete!</strong><br>You nailed the theme! You are a beauty superstar! ✨');
+    } else {
+      say('<strong>💗 Almost there!</strong><br>Try a color that matches your selected challenge, then check again!');
+    }
+  });
+
+  $('saveBtn').addEventListener('click',() => {
+    const svg = $('doll').cloneNode(true);
+    svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    svg.querySelectorAll('[style]').forEach(el => {
+      el.removeAttribute('style');
+    });
+    const data = new Blob(
+      [new XMLSerializer().serializeToString(svg)],
+      {type:'image/svg+xml;charset=utf-8'}
+    );
+    const url = URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'floptrop-allure.svg';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+    say('<strong>📸 Look saved!</strong><br>Your doll illustration has been downloaded as an SVG image.');
+  });
+
+  renderPalette();
+})();
+</script>
+</body>
+</html>
